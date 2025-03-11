@@ -116,7 +116,7 @@ const ShoppingCartModal = () => {
                 <span>${totalPrice.toFixed(2)}</span>
               </div>
               <div className={styles.summaryRow}>
-                <span>Platform's fee:</span>
+                <span>Platform&apos;s fee:</span>
                 <span>Free</span>
               </div>
               <div className={`${styles.summaryRow} ${styles.total}`}>

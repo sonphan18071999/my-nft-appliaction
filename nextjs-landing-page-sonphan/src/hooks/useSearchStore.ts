@@ -52,7 +52,7 @@ export const useSearchStore = create<SearchStore>((set, get) => ({
     set({ itemsInCart: updatedItemsInCart });
   },
   removeItemFromCart: (id: string) => {
-    const { itemsInCart, products } = get();
+    const { itemsInCart } = get();
     if (!itemsInCart) return;
 
     const itemInCartFoundIndex = itemsInCart.findIndex(
@@ -68,7 +68,7 @@ export const useSearchStore = create<SearchStore>((set, get) => ({
     set({ itemsInCart: updatedCart });
   },
   updateItemAmount: (id: string, amount: number | null) => {
-    const { itemsInCart, products } = get();
+    const { itemsInCart } = get();
     if (!itemsInCart || !amount) return;
     const updatedCart: CartItem[] = itemsInCart.map((item) => {
       if (item.id === id) item.quantity = amount.toString();
