@@ -21,6 +21,8 @@ interface SearchStore {
   setActiveTag: (category?: Category) => void;
   itemsInCart?: CartItem[];
   addItemIntoCart: (id: string) => void;
+  removeItemFromCart: (id: string) => void;
+  updateItemAmount: (id: string, amount: number | null) => void;
 }
 
 export const useSearchStore = create<SearchStore>((set, get) => ({
@@ -48,6 +50,31 @@ export const useSearchStore = create<SearchStore>((set, get) => ({
     }
 
     set({ itemsInCart: updatedItemsInCart });
+  },
+  removeItemFromCart: (id: string) => {
+    const { itemsInCart, products } = get();
+    if (!itemsInCart) return;
+
+    const itemInCartFoundIndex = itemsInCart.findIndex(
+      (item: CartItem) => item.id === id,
+    );
+
+    if (itemInCartFoundIndex === -1) return;
+
+    const updatedCart = itemsInCart.filter(
+      (_, index) => index !== itemInCartFoundIndex,
+    );
+
+    set({ itemsInCart: updatedCart });
+  },
+  updateItemAmount: (id: string, amount: number | null) => {
+    const { itemsInCart, products } = get();
+    if (!itemsInCart || !amount) return;
+    const updatedCart: CartItem[] = itemsInCart.map((item) => {
+      if (item.id === id) item.quantity = amount.toString();
+      return item;
+    });
+    set({ itemsInCart: updatedCart });
   },
   setMultipleFieldsFilter: (fields: FilterFormFields) => {
     set({ multipleFieldsFilter: fields });

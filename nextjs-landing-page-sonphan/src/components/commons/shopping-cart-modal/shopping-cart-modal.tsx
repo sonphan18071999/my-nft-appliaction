@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Badge, Button, Empty, InputNumber, Modal } from "antd";
 import styles from "./shopping-cart-modal.module.css";
-
 import {
   CloseOutlined,
   DeleteOutlined,
@@ -13,7 +12,10 @@ import { useSearchStore } from "@/hooks/useSearchStore";
 
 const ShoppingCartModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { itemsInCart } = useSearchStore();
+  const { itemsInCart, removeItemFromCart, updateItemAmount } =
+    useSearchStore();
+
+  const [totalPrice, setTotalPrice] = React.useState(0);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -24,8 +26,25 @@ const ShoppingCartModal = () => {
   };
 
   const removeItem = (id: string) => {
-    console.log("id", id);
+    removeItemFromCart(id);
   };
+
+  const handleInputChanges = (id: string, amount: number | null) => {
+    updateItemAmount(id, amount);
+  };
+
+  const newTotalPrice = useMemo(() => {
+    return (
+      itemsInCart?.reduce(
+        (acc, item) => acc + +item.price * +item.quantity,
+        0,
+      ) ?? 0
+    );
+  }, [itemsInCart]);
+
+  useEffect(() => {
+    setTotalPrice(newTotalPrice);
+  }, [newTotalPrice]);
 
   return (
     <div className={styles.shoppingCartContainer}>
@@ -48,7 +67,7 @@ const ShoppingCartModal = () => {
         width={600}
         className={styles.cartModal}
       >
-        {itemsInCart?.length === 0 ? (
+        {itemsInCart?.length === 0 || !itemsInCart ? (
           <Empty description="Your cart is empty" />
         ) : (
           <>
@@ -74,6 +93,7 @@ const ShoppingCartModal = () => {
                       max={99}
                       value={+item.quantity}
                       className={styles.quantityInput}
+                      onChange={(amount) => handleInputChanges(item.id, amount)}
                     />
                   </div>
                   <div className={styles.itemTotal}>
@@ -91,23 +111,25 @@ const ShoppingCartModal = () => {
             </div>
 
             <div className={styles.cartSummary}>
-              {/*<div className={styles.summaryRow}>*/}
-              {/*  <span>Subtotal:</span>*/}
-              {/*  <span>${totalPrice.toFixed(2)}</span>*/}
-              {/*</div>*/}
-              {/*<div className={styles.summaryRow}>*/}
-              {/*  <span>Shipping:</span>*/}
-              {/*  <span>Free</span>*/}
-              {/*</div>*/}
-              {/*<div className={`${styles.summaryRow} ${styles.total}`}>*/}
-              {/*  <span>Total:</span>*/}
-              {/*  <span>${totalPrice.toFixed(2)}</span>*/}
-              {/*</div>*/}
+              <div className={styles.summaryRow}>
+                <span>Subtotal:</span>
+                <span>${totalPrice.toFixed(2)}</span>
+              </div>
+              <div className={styles.summaryRow}>
+                <span>Platform's fee:</span>
+                <span>Free</span>
+              </div>
+              <div className={`${styles.summaryRow} ${styles.total}`}>
+                <span>Total:</span>
+                <span>${totalPrice.toFixed(2)}</span>
+              </div>
             </div>
 
             <div className={styles.cartActions}>
               <Button onClick={handleCancel}>Continue Shopping</Button>
-              <Button type="primary">Checkout</Button>
+              <Button type="primary" className={"primary-btn"}>
+                Checkout
+              </Button>
             </div>
           </>
         )}
