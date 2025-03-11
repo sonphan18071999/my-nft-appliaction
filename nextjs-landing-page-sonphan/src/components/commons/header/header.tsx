@@ -10,7 +10,6 @@ const Header = () => {
     { name: "Our Team", link: "/team" },
     { name: "Market Place", link: "/market" },
     { name: "Road Map", link: "/roadmap" },
-    { name: "White Paper", link: "/whitepaper" },
   ];
 
   return (
