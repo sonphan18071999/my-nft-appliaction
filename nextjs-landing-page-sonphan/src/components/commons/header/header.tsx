@@ -1,10 +1,12 @@
 "use client";
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
+import React from "react";
+import ShoppingCartModal from "@/components/commons/shopping-cart-modal/shopping-cart-modal";
 
 const Header = () => {
   const menuConfigs: MenuConfig[] = [
     { name: "Home", link: "/home" },
-    { name: "About Us", link: "/about" },
+    { name: "About Us", link: "/about-us" },
     { name: "Our Team", link: "/team" },
     { name: "Market Place", link: "/market" },
     { name: "Road Map", link: "/roadmap" },
@@ -13,8 +15,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-gray-900 text-white">
-        <div className="container mx-auto flex justify-between items-center py-4 px-6">
+      <header className="bg-gray-900 text-white flex justify-center items-center">
+        <div className="container flex justify-between items-center py-4 mx-2 max-w-[1574px]">
           <nav className="hidden md:flex space-x-6">
             {menuConfigs.map((menu, index) => (
               <a
@@ -27,9 +29,14 @@ const Header = () => {
               </a>
             ))}
           </nav>
-          <button className={"primary-btn"}>
-            <Typography className={"text-white"}>Connect Wallet</Typography>
-          </button>
+          <section className="flex flex-row gap-8">
+            <div>
+              <ShoppingCartModal />
+            </div>
+            <Button className="secondary-btn">
+              <Typography className="text-white">Login</Typography>
+            </Button>
+          </section>
         </div>
       </header>
     </>

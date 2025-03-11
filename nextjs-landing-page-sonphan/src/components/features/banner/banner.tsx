@@ -19,13 +19,9 @@ const Banner = () => {
     duration: 1.5,
   });
 
-  const handleShopNow = () => {
-    //Will implement
-  };
-
   return (
     <>
-      <section className={styles.banner__container} data-testid>
+      <section className={styles.banner__container}>
         <section className={styles.footer__background}></section>
         <section className={styles.banner__contents}>
           <section className={styles.textBlock}>
@@ -39,21 +35,15 @@ const Banner = () => {
                 height={"auto"}
                 className={styles.textBlock__newTag__image}
               />
-              <div className={styles.textBlock__shopNowContainer}>
-                <button
-                  className={styles.textBlock__shopNowBtn}
-                  onClick={() => handleShopNow()}
-                ></button>
-              </div>
             </div>
             <div
               className={styles.textBlock__arrival}
               ref={textBlockArrivalRef}
-            ></div>
+            />
             <div
               className={styles.highlight__character}
               ref={highLightCharacterRef}
-            ></div>
+            />
             <FloatCharacters />
           </section>
         </section>

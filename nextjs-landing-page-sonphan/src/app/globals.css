@@ -59,6 +59,7 @@ body {
 .secondary-btn:hover, .secondary-active-btn {
     background: linear-gradient(to right, rgb(218 69 143 / 100%), rgb(218 52 221 / 100%)) !important;
     font-size: 1.125rem;
+    color: white !important;
 }
 
 .primary-btn {
@@ -71,7 +72,8 @@ body {
 }
 
 .primary-btn:hover {
-    background: linear-gradient(to right, rgb(218 69 143 / 40%), rgb(218 52 221 / 40%));
+    background: linear-gradient(to right, rgb(218 69 143 / 40%), rgb(218 52 221 / 40%)) !important;
+    color: white !important;
 }
 
 .ant-slider-rail {
@@ -95,3 +97,6 @@ body {
     outline: none;
 }
 
+.linear-swiper {
+    transition-timing-function: linear !important;
+}

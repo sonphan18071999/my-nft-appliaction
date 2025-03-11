@@ -6,7 +6,7 @@
   display: grid;
   grid-column: 1/3;
   grid-row: 3/5;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 150px));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 120px));
   max-height: 30vh;
   overflow-y: auto;
   padding: 1rem;
@@ -44,12 +44,12 @@
     .character__name {
       font-size: 1rem;
     }
-
   }
 
   @include respond-to("sm") {
     grid-column: 1/4;
     grid-template-columns: repeat(auto-fit, minmax(100px, 210px));
+
     .character {
       max-width: 150px;
     }

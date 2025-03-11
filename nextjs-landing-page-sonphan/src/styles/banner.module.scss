@@ -7,9 +7,9 @@ $max-inner-width: 1574px;
   background: url("/assets/images/banner_background.svg") no-repeat center/cover;
   height: 100vh;
   margin: auto;
+  min-height: 100vh;
   position: relative;
   width: 100%;
-  min-height: 100vh;
 
   .banner__contents {
     height: 100%;

@@ -3,12 +3,22 @@
 $max-inner-width: 1574px;
 
 .market__container {
+  position: relative;
   column-gap: 2rem;
+  row-gap: 2rem;
   display: flex;
   flex-direction: column;
   margin: auto;
   max-width: $max-inner-width;
   width: 100%;
+
+  .add_to_cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+    width: 100%;
+  }
 
   .market__items {
     display: flex;
@@ -99,6 +109,15 @@ $max-inner-width: 1574px;
     align-items: center;
     column-gap: 0.5rem;
     display: flex;
+  }
+
+  .character {
+    transform-origin: bottom;
+  }
+
+  .character:hover {
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1.2);
   }
 
 

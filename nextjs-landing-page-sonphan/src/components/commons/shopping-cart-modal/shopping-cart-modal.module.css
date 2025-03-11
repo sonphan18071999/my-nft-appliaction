@@ -1,0 +1,141 @@
+
+.iconSize {
+    width: 16px;
+    height: 16px;
+}
+
+.cartModal :global(.ant-modal-content) {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.cartModal :global(.ant-modal-header) {
+    margin-bottom: 16px;
+}
+
+.cartItems {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.cartItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cartItem:last-child {
+    border-bottom: none;
+}
+
+.itemImage {
+    flex: 0 0 80px;
+    margin-right: 16px;
+}
+
+.productImage {
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.itemDetails {
+    flex: 1;
+}
+
+.itemName {
+    margin: 0 0 4px;
+    font-weight: 500;
+}
+
+.itemPrice {
+    margin: 0;
+    color: #666;
+}
+
+.itemQuantity {
+    margin: 0 16px;
+}
+
+.quantityInput {
+    width: 60px;
+}
+
+.itemTotal {
+    font-weight: 500;
+    margin-right: 16px;
+    min-width: 70px;
+    text-align: right;
+}
+
+.removeButton {
+    padding: 4px 8px;
+}
+
+.cartSummary {
+    background-color: #f9f9f9;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.summaryRow.total {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.cartActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cartActions button {
+    min-width: 120px;
+}
+
+/* Responsive styles */
+@media (max-width: 576px) {
+    .cartItem {
+        flex-wrap: wrap;
+    }
+
+    .itemImage {
+        flex: 0 0 60px;
+    }
+
+    .itemDetails {
+        flex: 1;
+    }
+
+    .itemQuantity,
+    .itemTotal {
+        margin-top: 8px;
+    }
+
+    .itemQuantity {
+        order: 3;
+        flex: 1;
+        margin-left: 76px; /* align with item details */
+    }
+
+    .itemTotal {
+        order: 4;
+        flex: 1;
+        text-align: left;
+    }
+
+    .removeButton {
+        order: 5;
+    }
+}
