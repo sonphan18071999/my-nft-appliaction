@@ -2,9 +2,11 @@
 
 
 .homepage__container {
+  background: url('https://raw.githubusercontent.com/sonphan18071999/tymex-interview-frontend-sonphan/refs/heads/main/nextjs-landing-page-sonphan/public/assets/images/footer_background.svg') no-repeat bottom/contain;
   display: flex;
   flex-direction: column;
   margin: auto;
   row-gap: 2rem;
   width: 100%;
+  
 }

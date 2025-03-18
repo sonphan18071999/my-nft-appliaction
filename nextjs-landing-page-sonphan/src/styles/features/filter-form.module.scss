@@ -14,13 +14,13 @@
   }
 
   .search__input {
+    background-color: transparent;
     border: 1px solid #3A3841;
     color: white;
-    background-color: transparent;
   }
 
   .search__input input::placeholder {
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: rgb(255 255 255 / 70%) !important;
     opacity: 1 !important;
   }
 
@@ -37,7 +37,6 @@
   }
 
   @include respond-to('lg') {
-    //width: clamp(20vw, 40vw, 23.25rem);
     max-width: 23.25rem;
     width: 30vw;
   }

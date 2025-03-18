@@ -1,12 +1,13 @@
 "use client";
 import { Input, Typography } from "antd";
 import SystemSelect from "@/components/commons/system-select/system-select";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import styles from "@/styles/features/filter-form.module.scss";
 import SystemSlider from "@/components/commons/system-slider/system-slider";
-import { FilterFormFields } from "@/models/filter-form";
+import { FilterFormFields, FilterType } from "@/models/filter-form";
 import useDebounce from "@/hooks/useDebounce";
+import { useSearchStore } from "@/hooks/useSearchStore";
 
 interface CustomSelectProps {
   label: string;
@@ -15,15 +16,7 @@ interface CustomSelectProps {
   defaultValue?: string;
 }
 
-interface FilterFormProps {
-  onFormSearch: (formVal: FilterFormFields) => void;
-  onSearchChange: (text?: string) => void;
-}
-
-const FilterForm: React.FC<FilterFormProps> = ({
-  onFormSearch,
-  onSearchChange,
-}) => {
+const FilterForm: React.FC = () => {
   const [filters, setFilters] = useState<FilterFormFields>({
     tier: undefined,
     theme: undefined,
@@ -31,10 +24,22 @@ const FilterForm: React.FC<FilterFormProps> = ({
     price: undefined,
   });
 
+  const {
+    searchByMultipleFields,
+    searchByInput,
+    setInputSearch,
+    setMultipleFieldsFilter,
+    loading,
+    currentFilterActive,
+  } = useSearchStore();
+
   const [searchText, setSearchText] = useState<string | undefined>("");
   const debouncedSearchText = useDebounce(searchText, 500);
 
-  const handleSelect = (key: keyof typeof filters, value: string) => {
+  const handleSelect = (
+    key: keyof typeof filters,
+    value: string | number[],
+  ) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -69,20 +74,21 @@ const FilterForm: React.FC<FilterFormProps> = ({
       handleSelect: (value: string) => handleSelect("time", value),
       defaultValue: filters.time,
     },
-    {
-      label: "Price",
-      options: [
-        { value: "LTH", label: "Low to High" },
-        { value: "HTL", label: "High to Low" },
-      ],
-      handleSelect: (value: string) => handleSelect("price", value),
-      defaultValue: filters.price,
-    },
   ];
 
-  useEffect(() => {
-    onSearchChange(debouncedSearchText);
+  const handleSearch = useCallback(() => {
+    setInputSearch(debouncedSearchText);
+    searchByInput();
   }, [debouncedSearchText]);
+
+  const handleSliderValueChange = (values: number[]) => {
+    handleSelect("price", values);
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [handleSearch]);
+
   return (
     <>
       <div className={styles.filter__form}>
@@ -96,7 +102,11 @@ const FilterForm: React.FC<FilterFormProps> = ({
             onChange={($event) => setSearchText($event.target.value)}
           />
         </div>
-        <SystemSlider start={0.01} end={200} />
+        <SystemSlider
+          start={0.01}
+          end={200}
+          onInputChange={handleSliderValueChange}
+        />
         {selectConfigs.map((config) => (
           <SystemSelect
             label={config.label}
@@ -122,9 +132,17 @@ const FilterForm: React.FC<FilterFormProps> = ({
 
           <button
             className="primary-btn px-10"
-            onClick={() => onFormSearch(filters)}
+            onClick={() => {
+              setMultipleFieldsFilter(filters);
+              searchByMultipleFields();
+            }}
+            disabled={loading && currentFilterActive === FilterType.FILTER_FORM}
           >
-            <Typography className="text-white">Search</Typography>
+            <Typography className="text-white">
+              {loading && currentFilterActive === FilterType.FILTER_FORM
+                ? "Searching..."
+                : "Search"}
+            </Typography>
           </button>
         </div>
       </div>

@@ -2,11 +2,11 @@ import { Typography } from "antd";
 
 export default function ContactUs() {
   const contactItems = [
-    { icon: "☎️", text: "01234568910", href: "tel:01234568910" },
+    { icon: "☎️", text: "0765844885", href: "tel:0765844885" },
     {
       icon: "💬",
-      text: "tymex-talent@tyme.com",
-      href: "mailto:tymex-talent@tyme.com",
+      text: "sonphan18071999@gmail.com",
+      href: "mailto:sonphan18071999@gmail.com",
     },
   ];
 

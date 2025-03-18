@@ -17,7 +17,7 @@
   &::-webkit-scrollbar {
     display: none;
   }
-  
+
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -49,12 +49,12 @@
     .character__name {
       font-size: 1rem;
     }
-
   }
 
   @include respond-to("sm") {
     grid-column: 1/4;
     grid-template-columns: repeat(auto-fit, minmax(100px, 210px));
+
     .character {
       max-width: 150px;
     }
